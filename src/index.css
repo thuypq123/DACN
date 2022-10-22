@@ -26,3 +26,10 @@ code {
 .CardItem:hover{
   transform: scale(1.1);
 }
+
+.btnAddMarket{
+  background-color: bisque;
+  position: absolute ;
+  bottom: 0;
+}
+

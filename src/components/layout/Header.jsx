@@ -14,9 +14,17 @@ import SearchIcon from "@mui/icons-material/Search";
 import AccountCircle from "@mui/icons-material/AccountCircle";
 import MailIcon from "@mui/icons-material/Mail";
 import NotificationsIcon from "@mui/icons-material/Notifications";
+import ShoppingBagIcon from '@mui/icons-material/ShoppingBag';
 import MoreIcon from "@mui/icons-material/MoreVert";
 import SideBar from "./SideBar";
 import { grey } from '@mui/material/colors';
+
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Link
+} from "react-router-dom";
 
 const color = grey[900];
 
@@ -101,8 +109,10 @@ export default function Header() {
       open={isMenuOpen}
       onClose={handleMenuClose}
     >
-      <MenuItem onClick={handleMenuClose}>Profile</MenuItem>
-      <MenuItem onClick={handleMenuClose}>My account</MenuItem>
+      <Link to="/user">
+        <MenuItem onClick={handleMenuClose}>Trang cá nhân</MenuItem>
+      </Link>
+      <MenuItem onClick={handleMenuClose}>Đăng xuất</MenuItem>
     </Menu>
   );
 
@@ -159,8 +169,8 @@ export default function Header() {
   );
 
   return (
-    <Box className="Header" sx={{ flexGrow: 1}}>
-      <AppBar sx={{ backgroundColor: color, boxShadow: 0, position:'fixed',  zIndex: 'modal'}} position="static">
+    <Box className="Header" sx={{ flexGrow: 1 }}>
+      <AppBar sx={{ backgroundColor: color, boxShadow: 0, position: 'fixed', zIndex: 'modal' }} position="static">
         <Toolbar>
           <IconButton
             size="large"
@@ -169,8 +179,9 @@ export default function Header() {
             aria-label="open drawer"
             sx={{ mr: 2 }}
           >
-            <SideBar/>
+            <SideBar />
           </IconButton>
+          <Link to="/" style={{ textDecoration: 'none', color: 'white' }}>
           <Typography
             variant="h6"
             noWrap
@@ -179,6 +190,7 @@ export default function Header() {
           >
             MUI
           </Typography>
+          </Link>
           <Search>
             <SearchIconWrapper>
               <SearchIcon />
@@ -190,15 +202,17 @@ export default function Header() {
           </Search>
           <Box sx={{ flexGrow: 1 }} />
           <Box sx={{ display: { xs: "none", md: "flex" } }}>
-            <IconButton
-              size="large"
-              aria-label="show 4 new mails"
-              color="inherit"
-            >
-              <Badge badgeContent={4} color="error">
-                <MailIcon />
-              </Badge>
-            </IconButton>
+            <Link to="shopping">
+              <IconButton
+                size="large"
+                aria-label="show 4 new mails"
+                color="inherit"
+              >
+                <Badge badgeContent={4} color="error">
+                  <ShoppingBagIcon />
+                </Badge>
+              </IconButton>
+            </Link>
             <IconButton
               size="large"
               aria-label="show 17 new notifications"
