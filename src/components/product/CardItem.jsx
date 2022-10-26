@@ -26,27 +26,26 @@ const theme = createTheme({
   },
 });
 
-export default function CardItem() {
+export default function CardItem({id, des , img, name}) {
   return (
-    <Card style={{transition: '1s, transform .3s'}} className='CardItem' sx={{ maxWidth: "80%"}}>
+    <Card style={{transition: '1s, transform .3s', height:500}} className='CardItem' sx={{ maxWidth: "80%"}}>
       <CardMedia
         component="img"
         height="140"
-        image="https://jangin.vn/wp-content/uploads/2021/01/Robe-Studio_11.jpg"
+        image={img}
         alt="green iguana"
       />
       <CardContent>
         <Typography gutterBottom variant="h5" component="div">
-          Lizard
+          {name}
         </Typography>
         <Typography variant="body2" color="text.secondary">
-          Lizards are a widespread group of squamate reptiles, with over 6,000
-          species, ranging across all continents except Antarctica
+          {des.length > 100 ? des.slice(0,100) + '...' : des}
         </Typography>
       </CardContent>
       <ThemeProvider theme={theme}>
         <CardActions>
-          <Link to='/detail/1'><Button color='checkOut' variant="contained"><RemoveRedEyeIcon style={{margin:'0px 5px'}}/>Xem</Button></Link>
+          <Link to={'/detail/'+id}><Button color='checkOut' variant="contained"><RemoveRedEyeIcon style={{margin:'0px 5px'}}/>Xem</Button></Link>
         </CardActions>
       </ThemeProvider>
     </Card>

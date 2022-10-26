@@ -31,7 +31,7 @@ const ResetPassword = () => {
             <ThemeProvider theme={theme}>
                 <Button color = 'blackBtn' style={{margin:'20px auto', display:'block', marginRight:0}} variant="outlined">Gửi SMS</Button>
                 <Link to='/user/reset'><Button variant="text" style={{marginRight:20}}>Quên Mật Khẩu?</Button></Link>
-                <Link to='/user/Register'><Button variant="text">Đăng Ký</Button></Link>
+                <Link to='/user/'><Button variant="text">Đăng Nhập</Button></Link>
             </ThemeProvider>
         </>
     )

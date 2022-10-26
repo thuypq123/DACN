@@ -11,7 +11,10 @@ import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
 import Rating from '@mui/material/Rating';
 import Chip from '@mui/material/Chip';
 import Typography from '@mui/material/Typography';
-
+import {useParams} from "react-router-dom";
+import { useSelector, useDispatch } from 'react-redux';
+import {getDetail, selectDetail} from './detailSlice';
+import {useEffect} from 'react';
 
 import Wrapper from "../../components/Wrapper";
 import Slider from "../../components/slide/Slide";
@@ -30,7 +33,6 @@ const theme = createTheme({
     },
 });
 
-const color = grey[900];
 const Item = styled(Paper)(({ theme }) => ({
     backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
     ...theme.typography.body2,
@@ -40,6 +42,12 @@ const Item = styled(Paper)(({ theme }) => ({
 }));
 
 const Detail = () => {
+    const dispatch = useDispatch();
+    const productId = useParams().ProductId;
+    useEffect(() => {
+        dispatch(getDetail(productId))
+    }, []);
+    const product = useSelector(selectDetail);
     return (
         <>
             <Slider />
@@ -58,34 +66,28 @@ const Detail = () => {
                                     <CardMedia
                                         component="img"
                                         height="140"
-                                        image="https://jangin.vn/wp-content/uploads/2021/01/Robe-Studio_11.jpg"
+                                        image={product.img}
                                         alt="green iguana"
                                     />
                                 </Card>
                             </Grid>
                             <Grid style={{position:'relative'}} item xs={6}>
                                 <ThemeProvider theme={theme}>
-                                    <Item style={{fontSize:'25px',background:'black', color:'white', margin:'5px'}}>Ghế Ăn và Bàn Ngủ</Item>
+                                    <Item style={{fontSize:'25px',background:'black', color:'white', margin:'5px'}}>{product.name}</Item>
                                     <Rating value={4} style={{fontSize:'2rem'}}/>
                                         <Typography style={{color:'grey', fontSize:'25px'}} variant="subtitle2" gutterBottom>
                                             Mô tả sản phẩm
                                         </Typography>
                                         <Typography style={{color:'grey'}} variant="body1" gutterBottom>
-                                            body1. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quos
-                                            blanditiis tenetur unde suscipit, quam beatae rerum inventore consectetur,
-                                            neque doloribus, cupiditate numquam dignissimos laborum fugiat deleniti? Eum
-                                            quasi quidem quibusdam.
+                                            {product.des}
                                         </Typography>
                                         <Typography style={{color:'grey', fontSize:'25px'}} variant="subtitle2" gutterBottom>
                                             Công dụng chính
                                         </Typography>
                                         <Typography style={{color:'grey'}} variant="body1" gutterBottom>
-                                            body1. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quos
-                                            blanditiis tenetur unde suscipit, quam beatae rerum inventore consectetur,
-                                            neque doloribus, cupiditate numquam dignissimos laborum fugiat deleniti? Eum
-                                            quasi quidem quibusdam.
+                                            {product.des}
                                         </Typography>
-                                    <Chip style={{position: 'absolute',bottom: '30px', height:'50px', width:'200px', fontSize:'1rem', left: '10px'}} label="3000$" variant="outlined" />
+                                    <Chip style={{position: 'absolute',bottom: '30px', height:'50px', width:'200px', fontSize:'1rem', left: '10px'}} label={product.price + '$'} variant="outlined" />
                                     <Button color="blackTheme" style={{position: 'absolute',bottom: '30px', right: '10px',height:'50px', width:'200px'}} variant="contained"><AddShoppingCartIcon/></Button>
                                 </ThemeProvider>
                             </Grid>
