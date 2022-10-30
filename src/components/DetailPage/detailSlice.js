@@ -1,9 +1,8 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 
 export const getDetail = createAsyncThunk('detail/getDetail',async (id) => {
-    const response = await fetch(`https://63533284d0bca53a8ebb9480.mockapi.io/Products/products/${id}`);
+    const response = await fetch(`http://localhost:3002/detail/${id}`);
     const data = await response.json();
-    console.log(id);
     return data;
 });
 
@@ -15,7 +14,8 @@ export const detailSlice = createSlice({
     extraReducers: {
         [getDetail.fulfilled]: (state, action) => {
             state.detail = action.payload;
-        }
+            console.log(state.detail);
+        },
     }
 });
 export default detailSlice.reducer;

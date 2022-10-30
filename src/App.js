@@ -17,8 +17,8 @@ function App() {
     <>
       <Header />
         <Routes>
-          <Route path='/' element={<Product/>}/>
-          <Route path='/user' element={<ActionPage/>}>
+          <Route path='/products' element={<Product/>}/>
+          <Route path='/' element={<ActionPage/>}>
             <Route index element={<Login/>}/>
             <Route path='Register' element={<Register/>}/>
             <Route path='Reset' element={<ResetPassword/>}/>

@@ -10,7 +10,11 @@ import Typography from '@mui/material/Typography';
 import TextField from '@mui/material/TextField';
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 import Button from '@mui/material/Button';
+import debounce from 'lodash.debounce'
+import { useState, useCallback } from 'react';
+import Cookies from 'js-cookie';
 import { red } from '@mui/material/colors';
+import swal from 'sweetalert';
 const color = red[500];
 const theme = createTheme({
     palette: {
@@ -30,23 +34,79 @@ const theme = createTheme({
 });
 
 
-const CardOrder = () => {
+const CardOrder = ({id, img, name, des, quantity, price}) => {
+    const [count, setCount] = useState(quantity);
+    const [deleteItem, setDeleteItem] = useState(false);
+    const handleChange = debounce(async(e) => {
+        if(e.target.value < 1){
+            swal({
+                title: "Số lượng phải lớn hơn 0",
+                icon: "warning",
+                button: "OK",
+              });
+            return;
+        }
+        const token = Cookies.get('token');
+        const res = await fetch('http://localhost:3002/order/editCard', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Accept': 'application/json',
+            },
+            body: JSON.stringify({token: token, quantity: e.target.value, product_id: id})
+        });
+        const data = await res.json();
+        if(data.status){
+            swal({
+                title: "Thành Công",
+                text: "Số lượng đã được thay đổi",
+                icon: "success",
+            });
+        }
+        console.log(data);
+    }, 500);
+    const debouceRequest = useCallback(value => handleChange(value), []);
+    const onChange = e => {
+        setCount(e.target.value);
+        debouceRequest(e);
+    };
+
+    const handleDelete = async() => {
+        const token = Cookies.get('token');
+        const res = await fetch('http://localhost:3002/order/deleteCard', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Accept': 'application/json',
+            },
+            body: JSON.stringify({token: token, product_id: id})
+        });
+        const data = await res.json();
+        if(data.status){
+            swal({
+                title: "Thành Công",
+                text: "Sản phẩm đã được xóa",
+                icon: "success",
+            });
+            setDeleteItem(true);
+        }
+    };
     return (
-        <Grid style={{ margin: '20px', position:'relative'}} sx={{ boxShadow: 2 }} item xs={5}>
+        <Grid style={{ margin: '20px', position:'relative', display:deleteItem==true?'none':'block'}} sx={{ boxShadow: 2 }} item xs={5}>
             <Card sx={{ display: 'flex' }}>
                 <CardMedia
                     component="img"
                     sx={{ width: 200 }}
-                    image="https://jangin.vn/wp-content/uploads/2021/01/Robe-Studio_11.jpg"
+                    image={img}
                     alt="Live from space album cover"
                 />
                 <Box sx={{ display: 'flex', flexDirection: 'column' }}>
                     <CardContent sx={{ flex: '1 0 auto' }}>
                         <Typography component="div" variant="h5">
-                            Live From Space
+                            {name}
                         </Typography>
                         <Typography variant="subtitle1" color="text.secondary" component="div">
-                            Mac Miller
+                            {des.length<30?des:des.slice(0,30)+'...'}
                         </Typography>
                     </CardContent>
                     <Box sx={{ display: 'flex', alignItems: 'center', pl: 1, pb: 1 }}>
@@ -55,21 +115,12 @@ const CardOrder = () => {
                             id="outlined-number" 
                             label="Số Lượng"
                             type="number"
-                            InputLabelProps={{
-                                shrink: true,
-                            }}
-                            onChange={(e) => {
-                                if (e.target.value > 10) {
-                                    e.target.value = 10
-                                }
-                                if (e.target.value < 1) {
-                                    e.target.value = 1
-                                }
-                            }}
+                            value={count}
+                            onChange={onChange}
                         />
                         <ThemeProvider theme={theme}>
-                            <Chip label='3000' style={{width:100, height:50, margin:'auto 10px'}}/>
-                            <Button style={{position:'absolute', right:20, opacity:'0.5'}} color = 'deleteBtn' variant="contained"><DeleteForeverIcon sx={{height:30, width:50}}/></Button>
+                            <Chip label={price} style={{width:100, height:50, margin:'auto 10px'}}/>
+                            <Button onClick={handleDelete} style={{position:'absolute', right:20, opacity:'0.5'}} color = 'deleteBtn' variant="contained"><DeleteForeverIcon sx={{height:30, width:50}}/></Button>
                         </ThemeProvider>
                     </Box>
                 </Box>

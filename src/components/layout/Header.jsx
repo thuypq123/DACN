@@ -18,6 +18,7 @@ import ShoppingBagIcon from '@mui/icons-material/ShoppingBag';
 import MoreIcon from "@mui/icons-material/MoreVert";
 import SideBar from "./SideBar";
 import { grey } from '@mui/material/colors';
+import Cookies from 'js-cookie';
 
 import {
   BrowserRouter as Router,
@@ -87,6 +88,10 @@ export default function Header() {
     setAnchorEl(null);
     handleMobileMenuClose();
   };
+  const logOut = () => {
+    Cookies.remove('token');
+    window.location.href = '/';
+  }
 
   const handleMobileMenuOpen = (event) => {
     setMobileMoreAnchorEl(event.currentTarget);
@@ -110,9 +115,9 @@ export default function Header() {
       onClose={handleMenuClose}
     >
       <Link to="/user">
-        <MenuItem onClick={handleMenuClose}>Trang cá nhân</MenuItem>
+        <MenuItem >Trang cá nhân</MenuItem>
       </Link>
-      <MenuItem onClick={handleMenuClose}>Đăng xuất</MenuItem>
+      <MenuItem onClick={logOut}>Đăng xuất</MenuItem>
     </Menu>
   );
 
@@ -153,13 +158,14 @@ export default function Header() {
         </IconButton>
         <p>Notifications</p>
       </MenuItem>
-      <MenuItem onClick={handleProfileMenuOpen}>
+      <MenuItem>
         <IconButton
           size="large"
           aria-label="account of current user"
           aria-controls="primary-search-account-menu"
           aria-haspopup="true"
           color="inherit"
+          onClick={handleProfileMenuOpen}
         >
           <AccountCircle />
         </IconButton>
@@ -167,7 +173,7 @@ export default function Header() {
       </MenuItem>
     </Menu>
   );
-
+      if(Cookies.get('token') != null){
   return (
     <Box className="Header" sx={{ flexGrow: 1 }}>
       <AppBar sx={{ backgroundColor: color, boxShadow: 0, position: 'fixed', zIndex: 'modal' }} position="static">
@@ -251,5 +257,5 @@ export default function Header() {
       {renderMobileMenu}
       {renderMenu}
     </Box>
-  );
+  )};
 }

@@ -14,7 +14,9 @@ import Typography from '@mui/material/Typography';
 import {useParams} from "react-router-dom";
 import { useSelector, useDispatch } from 'react-redux';
 import {getDetail, selectDetail} from './detailSlice';
+import swal from "sweetalert";
 import {useEffect} from 'react';
+import Cookies from "js-cookie";
 
 import Wrapper from "../../components/Wrapper";
 import Slider from "../../components/slide/Slide";
@@ -44,10 +46,30 @@ const Item = styled(Paper)(({ theme }) => ({
 const Detail = () => {
     const dispatch = useDispatch();
     const productId = useParams().ProductId;
+    const addCard = async () => {
+        const token = Cookies.get('token');
+        const getResponse = await fetch(`http://localhost:3002/addCard`, {
+            method: 'POST',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({token: token, productId: productId}),
+        });
+        const data = await getResponse.json();
+        swal({
+            title: "Thêm vào giỏ hàng thành công",
+            icon: "success",
+            button: "OK",
+        })
+    };
     useEffect(() => {
-        dispatch(getDetail(productId))
+        dispatch(getDetail(productId));
     }, []);
     const product = useSelector(selectDetail);
+    const productDetail = product[0];
+    console.log(productDetail);
+    if (!productDetail) { return null; }
     return (
         <>
             <Slider />
@@ -66,29 +88,29 @@ const Detail = () => {
                                     <CardMedia
                                         component="img"
                                         height="140"
-                                        image={product.img}
+                                        image={productDetail.img}
                                         alt="green iguana"
                                     />
                                 </Card>
                             </Grid>
                             <Grid style={{position:'relative'}} item xs={6}>
                                 <ThemeProvider theme={theme}>
-                                    <Item style={{fontSize:'25px',background:'black', color:'white', margin:'5px'}}>{product.name}</Item>
+                                    <Item style={{fontSize:'25px',background:'black', color:'white', margin:'5px'}}>{productDetail.name}</Item>
                                     <Rating value={4} style={{fontSize:'2rem'}}/>
                                         <Typography style={{color:'grey', fontSize:'25px'}} variant="subtitle2" gutterBottom>
                                             Mô tả sản phẩm
                                         </Typography>
                                         <Typography style={{color:'grey'}} variant="body1" gutterBottom>
-                                            {product.des}
+                                            {productDetail.des}
                                         </Typography>
                                         <Typography style={{color:'grey', fontSize:'25px'}} variant="subtitle2" gutterBottom>
                                             Công dụng chính
                                         </Typography>
                                         <Typography style={{color:'grey'}} variant="body1" gutterBottom>
-                                            {product.des}
+                                            {productDetail.des}
                                         </Typography>
-                                    <Chip style={{position: 'absolute',bottom: '30px', height:'50px', width:'200px', fontSize:'1rem', left: '10px'}} label={product.price + '$'} variant="outlined" />
-                                    <Button color="blackTheme" style={{position: 'absolute',bottom: '30px', right: '10px',height:'50px', width:'200px'}} variant="contained"><AddShoppingCartIcon/></Button>
+                                    <Chip style={{position: 'absolute',bottom: '30px', height:'50px', width:'200px', fontSize:'1rem', left: '10px'}} label={productDetail.price + '$'} variant="outlined" />
+                                    <Button onClick={addCard} color="blackTheme" style={{position: 'absolute',bottom: '30px', right: '10px',height:'50px', width:'200px'}} variant="contained"><AddShoppingCartIcon/></Button>
                                 </ThemeProvider>
                             </Grid>
                         </Grid>
