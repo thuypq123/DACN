@@ -7,7 +7,7 @@ import { Link } from 'react-router-dom';
 import Cookies from 'js-cookie'
 import { useDispatch, useSelector } from 'react-redux';
 import {getLogin, selectAllLogin} from './loginSlice';
-import store from '../redux/store';
+import store from '../../redux/store';
 import swal from 'sweetalert';
 const theme = createTheme({
     palette: {

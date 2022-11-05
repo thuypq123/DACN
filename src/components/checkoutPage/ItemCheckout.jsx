@@ -7,13 +7,13 @@ import ListItemAvatar from '@mui/material/ListItemAvatar';
 import Avatar from '@mui/material/Avatar';
 import Chip from '@mui/material/Chip';
 
-export default function ItemCheckout() {
+export default function ItemCheckout({id, price, quantity, img, name, des}) {
   return (
     <List sx={{ width: '100%', bgcolor: 'background.paper' }}>
       <Divider variant="inset" component="li" />
       <ListItem alignItems="flex-start">
         <ListItemAvatar>
-          <Avatar style={{width:100, height:100}} alt="Cindy Baker" src="https://jangin.vn/wp-content/uploads/2022/05/b%E1%BB%99-sevan-web-2-1900x840.jpg" />
+          <Avatar style={{width:100, height:100}} alt="Cindy Baker" src={img} />
         </ListItemAvatar>
         <ListItemText
           style={{margin:'auto 10px'}}
@@ -23,7 +23,7 @@ export default function ItemCheckout() {
               {' Do you have Paris recommendations? Have you ever…'}
             </React.Fragment>
           }
-        /><Chip label="30000$" />
+        /><Chip label={"Số Lượng: "+quantity} /><Chip label={"Đơn Gía: "+price + "$"} />
       </ListItem>
     </List>
   );

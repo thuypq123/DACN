@@ -72,7 +72,7 @@ const Register = () => {
                 });
                 const result = await res.json();
                 if(result.status){
-                    swal("Thành công!", "Chúc mừng bạn đã đăng ký thành công!", "success");
+                    swal("Thành công!", "Kiểm tra Gmail để xác nhận tại khoản!", "success");
                     setTimeout(() => {window.location.href = '/'}, 1000);
                 }else{
                     swal({

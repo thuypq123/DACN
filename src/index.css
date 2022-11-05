@@ -32,4 +32,11 @@ code {
   position: absolute ;
   bottom: 0;
 }
+body .react-bubbly-transitions__bubbly-link.active {
+  text-decoration: underline;
+}
+body .react-bubbly-transitions__bubbly-link {
+  color: white;
+}
+
 

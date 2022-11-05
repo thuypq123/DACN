@@ -14,11 +14,11 @@ const Product = () => {
     dispatch(getProducts());
   },[]);
   const allProducts = useSelector(selectAllProducts);
-  console.log(allProducts);
   if(Cookies.get('token') === undefined){
     window.location.href = '/';
   }else
   {
+    if(allProducts.length === 0){return;};
     return (
       <>
         <Slider/>

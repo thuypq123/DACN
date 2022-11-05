@@ -18,6 +18,7 @@ import ShoppingBagIcon from '@mui/icons-material/ShoppingBag';
 import MoreIcon from "@mui/icons-material/MoreVert";
 import SideBar from "./SideBar";
 import { grey } from '@mui/material/colors';
+import { BubblyContainer, BubblyLink } from "react-bubbly-transitions";
 import Cookies from 'js-cookie';
 
 import {
@@ -114,7 +115,7 @@ export default function Header() {
       open={isMenuOpen}
       onClose={handleMenuClose}
     >
-      <Link to="/user">
+      <Link to="/products">
         <MenuItem >Trang cá nhân</MenuItem>
       </Link>
       <MenuItem onClick={logOut}>Đăng xuất</MenuItem>
@@ -187,7 +188,7 @@ export default function Header() {
           >
             <SideBar />
           </IconButton>
-          <Link to="/" style={{ textDecoration: 'none', color: 'white' }}>
+          <BubblyLink to="/" colorStart="black" >
           <Typography
             variant="h6"
             noWrap
@@ -196,7 +197,7 @@ export default function Header() {
           >
             MUI
           </Typography>
-          </Link>
+          </BubblyLink>
           <Search>
             <SearchIconWrapper>
               <SearchIcon />
@@ -208,7 +209,7 @@ export default function Header() {
           </Search>
           <Box sx={{ flexGrow: 1 }} />
           <Box sx={{ display: { xs: "none", md: "flex" } }}>
-            <Link to="shopping">
+            <BubblyLink colorStart="black" to="shopping">
               <IconButton
                 size="large"
                 aria-label="show 4 new mails"
@@ -218,7 +219,7 @@ export default function Header() {
                   <ShoppingBagIcon />
                 </Badge>
               </IconButton>
-            </Link>
+            </BubblyLink>
             <IconButton
               size="large"
               aria-label="show 17 new notifications"

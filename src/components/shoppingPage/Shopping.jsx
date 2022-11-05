@@ -15,6 +15,7 @@ import OtherHousesIcon from '@mui/icons-material/OtherHouses';
 import Cookies from 'js-cookie';
 import { useDispatch, useSelector } from 'react-redux';
 import {getShopping, Listshopping} from './shoppingSlice';
+import { BubblyContainer, BubblyLink } from "react-bubbly-transitions";
 
 const theme = createTheme({
     palette: {
@@ -31,6 +32,9 @@ const theme = createTheme({
 
 const Shopping = () => {
     const token = Cookies.get('token');
+    if(!token){
+        window.location.href = '/';
+    }
     const dispatch = useDispatch();
     useEffect(() => {
         dispatch(getShopping(token));
@@ -53,14 +57,14 @@ const Shopping = () => {
                         productList.length>0? 
                         <ThemeProvider theme={theme}>
                             <Button onClick={()=>dispatch(getShopping(token))} style={{margin: '20px '}} color='neutral' variant="contained"><CheckIcon/>Lưu lại</Button>
-                            <Link to='/checkout'>
+                            <BubblyLink colorStart="black" to='/checkout'>
                                 <Button style={{margin: '20px'}} color='checkOut' variant="contained"><ShoppingCartCheckoutIcon/>Thanh toán</Button>
-                            </Link>
+                            </BubblyLink>
                         </ThemeProvider> : 
                         <ThemeProvider theme={theme}>
-                            <Link to='/products'>
+                            <BubblyLink colorStart="black" to='/products'>
                                 <Button style={{margin: '20px'}} color='checkOut' variant="contained"><OtherHousesIcon/>Trang chủ</Button>
-                            </Link>
+                            </BubblyLink>
                         </ThemeProvider>
                     }
                     

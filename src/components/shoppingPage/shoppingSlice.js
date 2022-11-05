@@ -1,4 +1,4 @@
-const {createSlice, createAsyncThunk} = require('@reduxjs/toolkit');
+import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 export const getShopping = createAsyncThunk('shopping/getShopping',async(payload) => {
     const data = await fetch('http://localhost:3002/order',{
         method: 'POST',

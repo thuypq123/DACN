@@ -1,6 +1,6 @@
 import React from 'react'
-import Slider from '../components/slide/Slide';
-import Wrapper from '../components/Wrapper';
+import Slider from '../slide/Slide';
+import Wrapper from '../Wrapper';
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
 import { createTheme, ThemeProvider } from '@mui/material/styles';

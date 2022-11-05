@@ -84,7 +84,7 @@ const Detail = () => {
                             columnSpacing={{ xs: 1, sm: 2, md: 3 }}
                         >
                             <Grid item xs={6}>
-                                <Card style={{transition: '1s, transform .3s', margin:'30px'}} className='CardItem' sx={{ maxWidth: "80%"}}>
+                                <Card style={{transition: '1s, transform .3s', margin:'40px'}} className='CardItem' sx={{ maxWidth: "70%"}}>
                                     <CardMedia
                                         component="img"
                                         height="140"
