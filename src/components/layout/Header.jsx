@@ -115,7 +115,7 @@ export default function Header() {
       open={isMenuOpen}
       onClose={handleMenuClose}
     >
-      <Link to="/products">
+      <Link to="/profile">
         <MenuItem >Trang cá nhân</MenuItem>
       </Link>
       <MenuItem onClick={logOut}>Đăng xuất</MenuItem>
@@ -176,7 +176,7 @@ export default function Header() {
   );
       if(Cookies.get('token') != null){
   return (
-    <Box className="Header" sx={{ flexGrow: 1 }}>
+    <Box className="Header" sx={{ flexGrow: 1 }} style={{marginTop:''}}>
       <AppBar sx={{ backgroundColor: color, boxShadow: 0, position: 'fixed', zIndex: 'modal' }} position="static">
         <Toolbar>
           <IconButton

@@ -11,6 +11,8 @@ import ActionPage from './components/loginPage/ActionPage';
 import Register from './components/loginPage/Register';
 import ResetPassword from './components/loginPage/ResetPassword';
 import Verify from './components/verifyPage/Verify';
+import Forgot from './components/loginPage/Forgot';
+import ProfilePage from './components/profilePage/profilePage';
 import { BubblyContainer, BubblyLink } from "react-bubbly-transitions";
 import './App.css';
 
@@ -20,17 +22,19 @@ function App() {
       <Header />
         <Routes>
           <Route path='/verify' element={<Verify/>}/>
+          <Route path='/forgot' element={<Forgot/>}/>
           <Route path='/products' element={<Product/>}/>
           <Route path='/' element={<ActionPage/>}>
             <Route index element={<Login/>}/>
             <Route path='Register' element={<Register/>}/>
             <Route path='Reset' element={<ResetPassword/>}/>
           </Route>
+          <Route path='/profile' element={<ProfilePage/>}/>
           <Route path='/Detail/:ProductId' element={<Detail/>}/>
           <Route path='/shopping' element={<Shopping/>}/>
           <Route path='/checkout' element={<CheckOut/>}/>
         </Routes>
-        {window.location.pathname !== '/verify' && <Footer />}
+        {window.location.pathname !== '/verify' && window.location.pathname !== '/forgot' && <Footer />}
     </>
   );
 }

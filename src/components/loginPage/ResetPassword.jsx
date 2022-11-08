@@ -4,6 +4,8 @@ import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
 import Cookie from 'js-cookie';
 import { Link } from 'react-router-dom';
+import { useState } from 'react';
+import swal from 'sweetalert';
 const theme = createTheme({
     palette: {
         primary: {
@@ -18,6 +20,44 @@ const theme = createTheme({
 }});
 
 const ResetPassword = () => {
+    const [email, setEmail] = useState('');
+    const handleSubmit = async(e) => {
+        e.preventDefault();
+        console.log(email);
+        if(!/([a-zA-Z0-9]+)([\_\.\-{1}])?([a-zA-Z0-9]+)\@([a-zA-Z0-9]+)([\.])([a-zA-Z\.]+)/g.test(email))
+        {
+            swal({
+                title: "Sai định dạng email",
+                text: "Bạn cần nhập đúng định dạng email ví dụ: abc@gmail.com",
+                icon: "warning",
+                dangerMode: true,
+                });
+        }else{
+            const respone = await fetch('http://localhost:3002/reset', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({email: email}),
+            });
+            const data = await respone.json();
+            if(data.status === true){
+                swal({
+                    title: "Thành công",
+                    text: "Kiểm tra email để lấy lại mật khẩu",
+                    icon: "success",
+                    dangerMode: true,
+                    });
+            }else{
+                swal({
+                    title: "Thất bại",
+                    text: "Email không tồn tại",
+                    icon: "error",
+                    dangerMode: true,
+                });
+            }
+        }
+    };
     if(Cookie.get('token') !== undefined){
         window.location.href = '/home';
     }
@@ -32,9 +72,10 @@ const ResetPassword = () => {
                     id="outlined-user-input"
                     label="Email"
                     autoComplete="current-password"
+                    onChange={(e) => setEmail(e.target.value)}
                 />
                 <ThemeProvider theme={theme}>
-                    <Button color = 'blackBtn' style={{margin:'20px auto', display:'block', marginRight:0}} variant="outlined">Gửi SMS</Button>
+                    <Button onClick={handleSubmit} color = 'blackBtn' style={{margin:'20px auto', display:'block', marginRight:0}} variant="outlined">Xác Nhận</Button>
                     <Link to='/Register'><Button variant="text" style={{marginRight:20}}>Đăng ký</Button></Link>
                     <Link to='/'><Button variant="text">Đăng Nhập</Button></Link>
                 </ThemeProvider>
