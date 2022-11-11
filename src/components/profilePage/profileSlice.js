@@ -1,7 +1,7 @@
 import {createSlice, createAsyncThunk} from '@reduxjs/toolkit';
 
 export const fetchProfile = createAsyncThunk('profile/fetchProfile', async (payload) => {
-    const response = await fetch(`http://localhost:3002/profile`,{
+    const response = await fetch(`https://backenddacn-production.up.railway.app/profile`,{
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
@@ -12,7 +12,7 @@ export const fetchProfile = createAsyncThunk('profile/fetchProfile', async (payl
     return data;
 });
 export const updateProfile = createAsyncThunk('profile/updateProfile', async (payload) => {
-    const response = await fetch(`http://localhost:3002/profile/updateprofile`,{
+    const response = await fetch(`https://backenddacn-production.up.railway.app/profile/updateprofile`,{
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
@@ -23,7 +23,7 @@ export const updateProfile = createAsyncThunk('profile/updateProfile', async (pa
     return data;
 });
 export const getOdersProfile = createAsyncThunk('profile/getOdersProfile', async (payload) => {
-    const response = await fetch(`http://localhost:3002/profile/getOrdersProfile`,{
+    const response = await fetch(`https://backenddacn-production.up.railway.app/profile/getOrdersProfile`,{
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'

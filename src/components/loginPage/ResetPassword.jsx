@@ -33,7 +33,7 @@ const ResetPassword = () => {
                 dangerMode: true,
                 });
         }else{
-            const respone = await fetch('http://localhost:3002/reset', {
+            const respone = await fetch('https://backenddacn-production.up.railway.app/reset', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
