@@ -6,8 +6,10 @@ import ListItemText from '@mui/material/ListItemText';
 import ListItemAvatar from '@mui/material/ListItemAvatar';
 import Avatar from '@mui/material/Avatar';
 import Chip from '@mui/material/Chip';
+import { useParams } from 'react-router-dom';
 
 export default function ItemCheckout({id, price, quantity, img, name, des}) {
+  console.log(useParams());
   return (
     <List sx={{ width: '100%', bgcolor: 'background.paper' }}>
       <Divider variant="inset" component="li" />
@@ -20,7 +22,7 @@ export default function ItemCheckout({id, price, quantity, img, name, des}) {
           primary="Oui Oui"
           secondary={
             <React.Fragment>
-              {' Do you have Paris recommendations? Have you ever…'}
+              {window.location.pathname != '/profile'?' Do you have Paris recommendations? Have you ever…':' '}
             </React.Fragment>
           }
         /><Chip label={"Số Lượng: "+quantity} /><Chip label={"Đơn Gía: "+price + "$"} />

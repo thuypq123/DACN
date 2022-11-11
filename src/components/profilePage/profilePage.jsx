@@ -24,9 +24,8 @@ export default function ProfilePage() {
           </Item>
         </Grid>
         <Grid item xs={4}>
-          <Item>
+          <Item style={{fontSize:25, background:'black', color:'white'}}>Danh Sách Đơn Hàng</Item>
             <OrderList/>
-          </Item>
         </Grid>
       </Grid>
     </Box>

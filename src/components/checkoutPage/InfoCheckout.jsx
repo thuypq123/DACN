@@ -15,6 +15,7 @@ import { createTheme, ThemeProvider } from '@mui/material/styles';
 import {postCheckoutInfo} from './checkOutSlice'
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
+import swal from 'sweetalert';
 import PaidIcon from '@mui/icons-material/Paid';
 
 const theme = createTheme({
@@ -47,8 +48,40 @@ const InfoCheckout = () => {
   const handleSubmit = (e) => {
     const token = Cookies.get('token');
     const order = { fullname, email, phone, address, order_date, receiver, payment, token };
-    dispatch(postCheckoutInfo(order));
+    if(fullname==''||email==''||phone==''||address==''||order_date==''||receiver==''||payment==''){
+      swal({
+        title: "Thông tin không được để trống",
+        icon: "warning",
+        button: "OK",
+      })
+    }else{
+      if(email.indexOf('@')==-1){
+        swal({
+          title: "Email không hợp lệ",
+          icon: "warning",
+          button: "OK",
+        })
+    }else{
+      if(phone.length<10){
+        swal({
+          title: "Số điện thoại không hợp lệ",
+          icon: "warning",
+          button: "OK",
+        })
+      }else{
+        dispatch(postCheckoutInfo(order));
+        swal({
+          title: "Đặt hàng thành công",
+          icon: "success",
+          button: "OK",
+        });
+        setTimeout(() => {
+          window.location.href = '/';
+        }, 2000);
+      }
+    }
   }
+}
   return (
     <>
     <Box style={{marginLeft:'5%', position:'relative'}} sx={{ flexGrow: 1 }}>
