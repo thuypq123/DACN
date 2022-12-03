@@ -17,6 +17,7 @@ import { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import swal from 'sweetalert';
 import PaidIcon from '@mui/icons-material/Paid';
+import store from '../../redux/store';
 
 const theme = createTheme({
   palette: {
@@ -43,8 +44,28 @@ const InfoCheckout = () => {
   const [order_date, setOrder_date] = useState('');
   const [receiver, setReceiver] = useState('');
   const [payment, setPayment] = useState('');
+  const [toggle, setToggle] = useState(false);
   const dispatch = useDispatch();
+  const handleToggle = (e) => {
+    setPayment(e.target.value);
+    setToggle(!toggle);
+  }
 
+  const handlePayment = async (event) => {
+    const productCheckOut = store.getState().checkout.ListcheckOut[0].products;
+    const token = Cookies.get('token');
+    const urlCheckOut = await fetch('http://localhost:3002/stripe/create-checkout-session', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json',
+      },
+      body: JSON.stringify({token: token, products: productCheckOut})
+    });
+    const data = await urlCheckOut.json();
+    window.location.href = data.url;
+    console.log(data);
+  };
   const handleSubmit = (e) => {
     const token = Cookies.get('token');
     const order = { fullname, email, phone, address, order_date, receiver, payment, token };
@@ -84,7 +105,7 @@ const InfoCheckout = () => {
 }
   return (
     <>
-    <Box style={{marginLeft:'5%', position:'relative'}} sx={{ flexGrow: 1 }}>
+    <Box style={{marginLeft:'5%', position:'relative', display:toggle?'':'none'}} sx={{ flexGrow: 1 }}>
         <Grid container spacing={1}>
         <Grid item xs={4}>
             <TextField onChange={(e)=>{setFullname(e.target.value)}} fullWidth size="small" label={'Họ và Tên'} id="margin-normal" />
@@ -110,19 +131,23 @@ const InfoCheckout = () => {
       {/* Phuong thuc thanh toan */}
       <FormControl>
       <FormLabel onClick={(e)=>{console.log(e.target.value)}} style={{fontSize:20, marginTop:10, marginBottom:20}} id="demo-form-control-label-placement">Phương thức thanh toán</FormLabel>
-      <RadioGroup
+    </FormControl>
+    </Box>
+    <ThemeProvider theme={theme}>
+    <RadioGroup
         row
         aria-labelledby="demo-form-control-label-placement"
         name="position"
         defaultValue="top"
+        style={{marginLeft:'5%', marginTop:10}}
       >
         <FormControlLabel
           className='radio'
           value="MOMO"
           control={<Radio />}
-          label={<img style={{width:75, height:75}} src="https://upload.wikimedia.org/wikipedia/vi/f/fe/MoMo_Logo.png" alt="Option 1"></img>}
+          label={<img style={{width:75, height:75}} src="https://cdn.iconscout.com/icon/free/png-256/stripe-2-498440.png" alt="Option 1"></img>}
           labelPlacement="top"
-          onChange={(e)=>{setPayment(e.target.value)}}
+          onChange={handlePayment}
         />
         <FormControlLabel
           className='radio'
@@ -130,13 +155,10 @@ const InfoCheckout = () => {
           control={<Radio />}
           label={<img style={{width:75, height:75}} src="https://cdn-icons-png.flaticon.com/512/69/69881.png" alt="Option 1"></img>}
           labelPlacement="top"
-          onChange={(e)=>{setPayment(e.target.value)}}
+          onChange={handleToggle}
         />
       </RadioGroup>
-    </FormControl>
-    </Box>
-    <ThemeProvider theme={theme}>
-      <Button onClick={handleSubmit} color='checkOut'  style={{marginLeft:'80%'}} variant="contained"><PaidIcon/>Thanh Toán</Button>
+      <Button onClick={handleSubmit} color='checkOut'  style={{marginLeft:'80%', display:toggle?'':'none'}} variant="contained"><PaidIcon/>Thanh Toán</Button>
     </ThemeProvider>
     </>
   )

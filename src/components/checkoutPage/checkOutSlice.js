@@ -1,7 +1,7 @@
 import {createSlice, createAsyncThunk} from '@reduxjs/toolkit';
 
 export const getCheckOut = createAsyncThunk('checkOut/getCheckOut',async(payload) => {
-    const data = await fetch('https://backenddacn-production.up.railway.app/checkout',{
+    const data = await fetch('http://localhost:3002/checkout',{
         method: 'POST',
         headers: {
             'Accept': 'application/json',
@@ -14,7 +14,7 @@ export const getCheckOut = createAsyncThunk('checkOut/getCheckOut',async(payload
 });
 
 export const postCheckoutInfo = createAsyncThunk('checkOut/postCheckoutInfo',async(payload) => {
-    const data = await fetch('https://backenddacn-production.up.railway.app/checkout/postcheckoutinfo',{
+    const data = await fetch('http://localhost:3002/checkout/postcheckoutinfo',{
         method: 'POST',
         headers: {
             'Accept': 'application/json',

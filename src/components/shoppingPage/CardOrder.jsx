@@ -47,7 +47,7 @@ const CardOrder = ({id, img, name, des, quantity, price}) => {
             return;
         }
         const token = Cookies.get('token');
-        const res = await fetch('https://backenddacn-production.up.railway.app/order/editCard', {
+        const res = await fetch('http://localhost:3002/order/editCard', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',

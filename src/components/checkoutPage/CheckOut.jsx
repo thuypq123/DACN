@@ -38,7 +38,7 @@ const CheckOut = () => {
     <div>
         <Slider/>
         <h3 style={{ fontSize: 25, marginLeft: '10%' , display:'inline'}}>Thanh Toán đơn hàng</h3>
-        <h3 style={{ fontSize: 25, marginLeft: '30%' , display:'inline'}}>Thông Tin Khách Hàng</h3>
+        <h3 style={{ fontSize: 25, marginLeft: '30%' , display:'inline'}}>Hình Thức Thanh Toán</h3>
         <hr style={{ color: "red", height: 50, width: '80%', margin: 'auto' }}></hr>
         <Wrapper>
         <Box sx={{ flexGrow: 1 }}>

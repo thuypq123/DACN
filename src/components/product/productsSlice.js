@@ -2,7 +2,7 @@ import {createSlice, createAsyncThunk} from '@reduxjs/toolkit';
 
 export const getProducts = createAsyncThunk('products/getProducts',
     async () => {
-        const response = await fetch('https://backenddacn-production.up.railway.app/products');
+        const response = await fetch('http://localhost:3002/products');
         const data = await response.json();
         return data;
     }

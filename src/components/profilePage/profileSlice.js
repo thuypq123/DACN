@@ -1,7 +1,7 @@
 import {createSlice, createAsyncThunk} from '@reduxjs/toolkit';
 
 export const fetchProfile = createAsyncThunk('profile/fetchProfile', async (payload) => {
-    const response = await fetch(`https://backenddacn-production.up.railway.app/profile`,{
+    const response = await fetch(`http://localhost:3002/profile`,{
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
@@ -12,7 +12,7 @@ export const fetchProfile = createAsyncThunk('profile/fetchProfile', async (payl
     return data;
 });
 export const updateProfile = createAsyncThunk('profile/updateProfile', async (payload) => {
-    const response = await fetch(`https://backenddacn-production.up.railway.app/profile/updateprofile`,{
+    const response = await fetch(`http://localhost:3002/profile/updateprofile`,{
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
@@ -23,9 +23,10 @@ export const updateProfile = createAsyncThunk('profile/updateProfile', async (pa
     return data;
 });
 export const getOdersProfile = createAsyncThunk('profile/getOdersProfile', async (payload) => {
-    const response = await fetch(`https://backenddacn-production.up.railway.app/profile/getOrdersProfile`,{
+    const response = await fetch(`http://localhost:3002/profile/getOrdersProfile`,{
         method: 'POST',
         headers: {
+            'Accept': 'application/json',
             'Content-Type': 'application/json'
         },
         body: JSON.stringify({token:payload})
@@ -48,7 +49,6 @@ const profileSlice = createSlice({
         [fetchProfile.fulfilled]: (state, action) => {
             state.status = 'succeeded';
             state.profile = action.payload;
-            console.log(action.payload);
         },
         [fetchProfile.rejected]: (state, action) => {
             state.status = 'failed';

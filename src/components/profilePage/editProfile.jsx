@@ -11,7 +11,7 @@ import Cookies from 'js-cookie';
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect, useState} from 'react';
 import { fetchProfile,updateProfile } from './profileSlice';
-const colorRed = red[500];
+import RestartAltIcon from '@mui/icons-material/RestartAlt';
 
 const Profile = () => {
   const [fullname, setfullname] = useState('');
@@ -73,6 +73,34 @@ const Profile = () => {
       }
     };
   };
+  const handleResendEmail = async () => {
+    const token = Cookies.get('token');
+    const sendToken = await fetch('http://localhost:3002/user/verify', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Aplication': 'application/json',
+      },
+      body: JSON.stringify({ token }),
+    });
+    const data = await sendToken.json();
+    if (data.status === 'success') {
+      swal({
+        title: 'Thành Công',
+        text: 'Gửi lại mã xác thực thành công',
+        icon: 'success',
+        button: 'Đóng',
+      });
+    } else {
+      swal({
+        title: 'Lỗi',
+        text: 'Gửi lại mã xác thực thất bại',
+        icon: 'error',
+        button: 'Đóng',
+      });
+    }
+    console.log(data);
+  }
   if(profile)
   return (
     <div>
@@ -84,7 +112,9 @@ const Profile = () => {
       <div>
         <h1 style={{textAlign:'center', fontSize:'30px'}}>{profile.fullname}</h1>
         <h1 style={{textAlign:'center', fontSize:'20px'}}>{profile.email}</h1>
-        <Chip style={{margin:'10px'}} variant="outlined" label={profile.verify?'Đã Xác Nhận':'Chưa Xác Nhận'} color={profile.verify?'primary':'error'}/>
+        {profile.verify?<Chip style={{margin:'10px'}} variant="outlined" label={'Đã Xác Nhận'} color={'primary'}/>:
+        <Chip style={{margin:'10px'}} icon={<RestartAltIcon />} onClick={handleResendEmail} variant="outlined" label={'Chưa Xác Nhận'} color={'error'}/>
+        }
       </div>
       <hr style={{color: "red", height: 50,  width:'80%', margin:'auto'}}></hr>
       <h1 style={{ fontSize:'30px', margin:'20px'}}>Thông tin cá nhân</h1>

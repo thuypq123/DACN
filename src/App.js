@@ -13,6 +13,7 @@ import ResetPassword from './components/loginPage/ResetPassword';
 import Verify from './components/verifyPage/Verify';
 import Forgot from './components/loginPage/Forgot';
 import ProfilePage from './components/profilePage/profilePage';
+import SuccessPage from './components/checkoutPage/SuccessPage';
 import { BubblyContainer, BubblyLink } from "react-bubbly-transitions";
 import './App.css';
 
@@ -33,6 +34,7 @@ function App() {
           <Route path='/Detail/:ProductId' element={<Detail/>}/>
           <Route path='/shopping' element={<Shopping/>}/>
           <Route path='/checkout' element={<CheckOut/>}/>
+          <Route path='/success' element={<SuccessPage/>}/>
         </Routes>
         {window.location.pathname !== '/verify' && window.location.pathname !== '/forgot' && <Footer />}
     </>

@@ -9,7 +9,6 @@ import Chip from '@mui/material/Chip';
 import { useParams } from 'react-router-dom';
 
 export default function ItemCheckout({id, price, quantity, img, name, des}) {
-  console.log(useParams());
   return (
     <List sx={{ width: '100%', bgcolor: 'background.paper' }}>
       <Divider variant="inset" component="li" />
