@@ -63,7 +63,7 @@ const Register = () => {
                     username: user,
                     password: password,
                 }
-                const res = await fetch('http://localhost:3002/user/Register', {
+                const res = await fetch('https://backenddacn.onrender.com/user/Register', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json'

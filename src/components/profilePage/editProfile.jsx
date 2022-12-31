@@ -75,7 +75,7 @@ const Profile = () => {
   };
   const handleResendEmail = async () => {
     const token = Cookies.get('token');
-    const sendToken = await fetch('http://localhost:3002/user/verify', {
+    const sendToken = await fetch('https://backenddacn.onrender.com/user/verify', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

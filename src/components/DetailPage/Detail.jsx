@@ -48,7 +48,7 @@ const Detail = () => {
     const productId = useParams().ProductId;
     const addCard = async () => {
         const token = Cookies.get('token');
-        const getResponse = await fetch(`http://localhost:3002/addCard`, {
+        const getResponse = await fetch(`https://backenddacn.onrender.com/addCard`, {
             method: 'POST',
             headers: {
                 'Accept': 'application/json',

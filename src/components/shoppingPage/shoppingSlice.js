@@ -1,6 +1,6 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 export const getShopping = createAsyncThunk('shopping/getShopping',async(payload) => {
-    const data = await fetch('http://localhost:3002/order',{
+    const data = await fetch('https://backenddacn.onrender.com/order',{
         method: 'POST',
         headers: {
             'Accept': 'application/json',

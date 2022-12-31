@@ -1,7 +1,7 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 
 export const getDetail = createAsyncThunk('detail/getDetail',async (id) => {
-    const response = await fetch(`http://localhost:3002/detail/${id}`);
+    const response = await fetch(`https://backenddacn.onrender.com/detail/${id}`);
     const data = await response.json();
     return data;
 });

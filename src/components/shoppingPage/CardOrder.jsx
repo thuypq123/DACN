@@ -47,7 +47,7 @@ const CardOrder = ({id, img, name, des, quantity, price}) => {
             return;
         }
         const token = Cookies.get('token');
-        const res = await fetch('http://localhost:3002/order/editCard', {
+        const res = await fetch('https://backenddacn.onrender.com/order/editCard', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -73,7 +73,7 @@ const CardOrder = ({id, img, name, des, quantity, price}) => {
 
     const handleDelete = async() => {
         const token = Cookies.get('token');
-        const res = await fetch('http://localhost:3002/order/deleteCard', {
+        const res = await fetch('https://backenddacn.onrender.com/order/deleteCard', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',

@@ -1,7 +1,7 @@
 import {createSlice, createAsyncThunk} from '@reduxjs/toolkit';
 
 export const getVerifyEmail = createAsyncThunk('verifyEmail/getVerifyEmail',async (payload) => {
-    const response = await fetch('http://localhost:3002/verify?token='+payload,{
+    const response = await fetch('https://backenddacn.onrender.com/verify?token='+payload,{
         method: 'GET',
         headers: {
             'Accept': 'application/json',

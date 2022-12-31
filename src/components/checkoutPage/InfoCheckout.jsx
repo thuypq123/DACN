@@ -54,7 +54,7 @@ const InfoCheckout = () => {
   const handlePayment = async (event) => {
     const productCheckOut = store.getState().checkout.ListcheckOut[0].products;
     const token = Cookies.get('token');
-    const urlCheckOut = await fetch('http://localhost:3002/stripe/create-checkout-session', {
+    const urlCheckOut = await fetch('https://backenddacn.onrender.com/stripe/create-checkout-session', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
